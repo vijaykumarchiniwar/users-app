@@ -80,8 +80,6 @@ public class UserServiceImpl implements IUserService {
         if (userEntity == null) {
             throw new UserException("User not found exception.");
         }
-        // UserDto userDto = new UserDto();
-        // BeanUtils.copyProperties(userEntity, userDto);
         UserDto userDto = objectMapper.convertValue(userEntity, UserDto.class);
         return userDto;
     }

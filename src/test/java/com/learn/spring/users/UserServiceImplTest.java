@@ -20,15 +20,20 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class UserServiceImplTest {
 
     @InjectMocks
     UserServiceImpl userService;
+
     UserEntity userEntity;
     UserDto userDto;
+
     @Mock
     private UserRepository userRepository;
     @Mock
@@ -87,4 +92,22 @@ public class UserServiceImplTest {
             userService.getUser("test@test.com");
         });
     }
+
+    @Test
+    public void testCreateUser() {
+        when(userRepository.findUserEntityByEmail(anyString())).thenReturn(null);
+        when(objectMapper.convertValue(userEntity, UserDto.class)).thenReturn(userDto);
+        when(userRepository.save(any(UserEntity.class))).thenReturn(userEntity);
+        when(objectMapper.convertValue(userDto, UserEntity.class)).thenReturn(userEntity);
+
+        UserDto savedUserDto = userService.createUser(userDto);
+
+        assertNotNull(savedUserDto, "ÜserDto is null");
+        verify(userRepository, times(1)).save(userEntity);
+        assertEquals("560076", savedUserDto.getAddressDtos().get(0).getPinCode());
+        assertEquals("vijaykumar.chiniwar100@gmail.com", userDto.getEmail());
+        assertEquals(1, savedUserDto.getAddressDtos().size());
+        assertEquals(userEntity.getEmail(), savedUserDto.getEmail());
+    }
+
 }
