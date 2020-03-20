@@ -6,7 +6,7 @@ public class AddressRequestModel {
     private String city;
     private String pinCode;
     private String type;
-    //private UserRequestModel userDetails;
+    // private UserRequestModel userDetails;
 
     public String getStreet() {
         return street;
@@ -40,11 +40,10 @@ public class AddressRequestModel {
         this.type = type;
     }
 
-/*    public UserRequestModel getUserDetails() {
-        return userDetails;
-    }
-
-    public void setUserDetails(UserRequestModel userDetails) {
-        this.userDetails = userDetails;
-    }*/
+	/*
+     * public UserRequestModel getUserDetails() { return userDetails; }
+	 * 
+	 * public void setUserDetails(UserRequestModel userDetails) { this.userDetails =
+	 * userDetails; }
+	 */
 }

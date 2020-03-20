@@ -20,6 +20,8 @@ target/
 *.ipr
 .target
 target
+.bin
+bin
 
 ### NetBeans ###
 /nbproject/private/

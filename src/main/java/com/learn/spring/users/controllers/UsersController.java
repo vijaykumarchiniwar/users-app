@@ -39,8 +39,8 @@ public class UsersController {
     }
 
     @GetMapping()
-    private ResponseEntity<List<UserResponseModel>> getUsers(@RequestParam(value = "page", defaultValue = "1")
-                                                                     int page, @RequestParam(value = "limit", defaultValue = "25") int limit) {
+    private ResponseEntity<List<UserResponseModel>> getUsers(@RequestParam(value = "page", defaultValue = "1") int page,
+                                                             @RequestParam(value = "limit", defaultValue = "25") int limit) {
 
         if (page < 0) {
             page = 0;

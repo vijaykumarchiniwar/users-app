@@ -13,11 +13,13 @@ public class AppExceptionHandler {
 
     @ExceptionHandler(value = {UserException.class})
     private ResponseEntity<Object> exceptionHandler(UserException userException, HttpRequest httpRequest) {
-        return new ResponseEntity<>(new ErrorMessage(new Date(), userException.getMessage()), httpRequest.getHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(new ErrorMessage(new Date(), userException.getMessage()), httpRequest.getHeaders(),
+                HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(value = {Exception.class})
     private ResponseEntity<Object> exceptionHandler(Exception exception, HttpRequest httpRequest) {
-        return new ResponseEntity<>(new ErrorMessage(new Date(), exception.getMessage()), httpRequest.getHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(new ErrorMessage(new Date(), exception.getMessage()), httpRequest.getHeaders(),
+                HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

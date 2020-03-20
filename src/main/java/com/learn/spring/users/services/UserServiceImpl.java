@@ -1,7 +1,6 @@
 package com.learn.spring.users.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.learn.spring.users.entities.AddressEntity;
 import com.learn.spring.users.entities.UserEntity;
 import com.learn.spring.users.exceptions.UserException;
 import com.learn.spring.users.models.AddressDto;
@@ -20,13 +19,16 @@ import java.util.UUID;
 @Service
 public class UserServiceImpl implements IUserService {
 
-    @Autowired
+    // @Autowired
     private ObjectMapper objectMapper;
+
+    // @Autowired
     private UserRepository userRepository;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, ObjectMapper objectMapper) {
         this.userRepository = userRepository;
+        this.objectMapper = objectMapper;
     }
 
     @Override
@@ -78,11 +80,9 @@ public class UserServiceImpl implements IUserService {
         if (userEntity == null) {
             throw new UserException("User not found exception.");
         }
+        // UserDto userDto = new UserDto();
+        // BeanUtils.copyProperties(userEntity, userDto);
         UserDto userDto = objectMapper.convertValue(userEntity, UserDto.class);
-        userEntity.getAddresses().forEach(addressEntity -> {
-            AddressDto addressDto = objectMapper.convertValue(addressEntity, AddressDto.class);
-            //userDto.getAddressDtos().add(addressDto);
-        });
         return userDto;
     }
 
@@ -102,4 +102,5 @@ public class UserServiceImpl implements IUserService {
         });
         return userDtos;
     }
+
 }
